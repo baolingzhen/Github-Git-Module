@@ -1,0 +1,317 @@
+---
+output:
+  html_document:
+    df_print: paged
+  df_print: tibble
+  fig_caption: yes
+  code_folding: none
+  html_notebook: null
+  toc: yes
+  toc_float:
+    collapsed: yes
+    smooth_scroll: yes
+---
+[//]: # CSS style arguments
+
+<style type="text/css">
+
+
+
+body{ /* Normal  */
+      font-size: 16px;
+      counter-reset:table figure;
+      padding: 2px 2px 2px 20px;
+
+  }
+
+.table{
+  width:auto;
+  font-size:12px;
+}
+
+caption::before{
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+}
+
+.caption::before{
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+}
+
+caption, .caption{
+  font-style:italic;
+  font-size: 14px;
+  margin-top:0.5em;
+  margin-bottom:0.5em;
+  width:80%;
+  text-align: left;
+}
+
+#TOC {
+  font-size: 16px;
+  width: 80%;
+}
+
+.list-group-item.active {
+    color: #fff;
+    background-color: #000279;
+    border-color: #000279;
+}
+
+.list-group-item.active:focus {
+    color: #fff;
+    background-color: #000279;
+    border-color: #000279;
+}
+
+.list-group-item.active:hover {
+    color: #fff;
+    background-color: #000279;
+    border-color: #000279;
+}
+
+h1 {
+color: #000279;
+font-style: bold;
+}
+
+h3 {
+color: #000279;
+}
+
+h2 {
+color: #178000;
+font-style: bold;
+
+}
+
+span {
+  background-color: #000279;
+  text-indent: 10px;
+  color: white;
+  padding: 5px 10px 5px 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+
+.btn {
+display: none;
+}
+
+
+.header {
+    width: 100%;
+    height: 100px;
+}
+
+
+
+</style>
+
+<header>
+   <img src = "https://raw.githubusercontent.com/coding2share/images/master/c2s_logo_header.jpg"/>
+</header>
+
+```{r setupOpts, echo=FALSE}
+knitr::opts_chunk$set(echo=FALSE, fig.width=12, fig.height=8, warning=FALSE, message=FALSE)
+
+```
+
+##What is Git and why is it useful?
+Git is a software document version control system (https://git-scm.com/book/en/v1/Getting-Started-Git-Basics). Typically, many of us track versions fo files by adding numbers (e.g. docv1, docv2, docv3) or dates (doc02012018, doc02052018, doc02142018). Many versions of a project document can lead to a file management headache (not to mention a project directory mess) that is associated with the proliferation of dozens of file versions over the course of a project. Git tracks file ersions behind the scences so that you only see your current file version in your directory.  Git has been most commonly used in the field of computer science to allow version control of computer code and to allow for collaborative coding between people working on the same project but has more recently become recognized as an essential tool for helping to ensure reproducible research. 
+
+##How does Git work in a nutshell?
+Git works by taking what you can think of as 'snapshots' at a point in time of a file that the user has put under version control. In the image below, there are three files that are being tracked by Git (A, B, and C). In version 2 (i.e. at snapshot time 2), files A and C have changes but B does not. In version 3 (i.e. at snapshot time 3), only file C has changed.
+
+
+<img src="https://raw.githubusercontent.com/kijohnson/Github-Git-Module/caf835832957fec0ac3a77fd212f615f2d29265e/versionsOverTime.jpg">
+
+##What is GitHub and why is it useful?
+Github is a 'remote' website and file repository that allows you to store files and their versions generated through Git on an accessbile cloud-based server platform. You can use Github as a central location to store your files and work collaboratively by *push*ing file versions from your computer to a Github shared repository. Your collaborator can *pull* the most current file version from the shared repository, add their changes, and then *push* it back for you to *pull* and work on.  It can serve as a repository for any type of file (*e.g.* coding, word processing, images, etc.). Think of it like a Facebook for geeks (we are geeks so we mean that in the most flattering way possible), allowing them to efficiently collaborate on code and other types of electronic documents, including sharing of the products of their work with the world, and commenting on and making changes to the products of others. To use GitHub for your file and/or file version storage, you must first create a GitHub account (see below for instructions). Once you have an account, you can create respositories to hold and organize your file versions for a particular project and give others access to these repositories to allow collaborative work.  GitHub has some unique terminology that may come across as confusing at first. We have included a dictionary of frequently used terms in the Git and GitHub worlds at the end of this document, which may be helpful to you as you learn how to use them.
+
+##Working with Git and GitHub
+There are many different software programs for version control. We will give instructions for two commonly used programs in this module: *Git Bash* and *GitHub desktop*. Git Bash is a popular command line interface using Unix commands and GitHub desktop is a graphical user interface (e.g., point-and-click) application. Both are free and allow you to do local version control as well as transferring versions of files back and forth from your local computer to Github.
+
+##Step-by-step instructions for using Git Bash in conjunction with Github
+
+###1. Create a GitHub account
+Go to: https://github.com to create an account. For more detailed instructions on using GitHub than are provided below, please see: https://guides.github.com/activities/hello-world/.
+
+###2. Download and install Git Bash
+**For Mac users**, you can download and install Git Bash from: https://git-scm.com/download/mac. Helpful tip: If you get an error message that your security preferences do not allow Git to be opened, go into system preferences -> security & privacy -> general and you can select "open anyways". If you can't find git after you download it: Go to finder -> Go (drop down menu) -> Go to the folder: (then type folder path, will probably be "usr/local/bin"). You can drag the folder labeled "git" to another, easier to find location. If you are not sure of the folder path, go into Git installer, then open the readme.txt and it should tell you the path.
+
+**For Windows users**, you can download and install Git Bash from: https://git-scm.com/download/win
+
+###3. Open Git Bash and assign a directory where you will keep files that you want to put under version control.
+Change your directory to the directory where you will keep files that you want to put under version control. In Git language this will be called your *master* directory by default. This is where you will initialize a Git folder, which is the workhorse for version control and uploading files from your local repository to your remote repository. You never have to look at the contents of the Git folder which appears labelled as '.git' but know this is where the version control magic happens. I have assigned my master directory to be on my local computer using the cd command followed by the location.
+
+![](https://github.com/kijohnson/Github-Git-Module/blob/master/Step3.PNG?raw=true)
+
+*Note: On Mac, you will be doing all of this in the terminal. You can find the terminal by searching "Terminal" in the search bar.* 
+
+For more help with setting up git: https://docs.gitlab.com/ce/gitlab-basics/start-using-git.html
+
+
+###4. Initialize a git repository on the desktop using the *git init* command
+The git repository that is AUTOMATICALLY created with the *git init* command in the local master directory provides all the necessary metadata (the magic mentioned above). You can ignore the repository but know that it is essential to for using git.
+
+$ git init
+
+`$ git init`
+
+![](https://github.com/kijohnson/Github-Git-Module/blob/master/Step4.PNG?raw=true)
+
+###5. *Add* a file for version control tracking
+If you don't have a file you want to add for the purposes of this tutorial, you can make an empty text file using notepad or some other text editor. I made a file containing the text 'hello world' and saved it as helloworld.txt in my master directory. Once I have the file, I can now add it for tracking by git.
+
+`$ git add 'C:.txt'`
+
+![](https://github.com/kijohnson/Github-Git-Module/blob/master/Step5.PNG?raw=true)
+
+
+The helloworld.txt file has now been added to what is commonly referred to as the 'staging' environment and is ready to be *commit*ted as a snapshot (i.e. a version).
+
+###6. Use the *git commit* command to record changes in your file to your local repository. 
+You can include a message with *git commit* to provide information about the changes made to the file(s) or if it is your first file to tag the file with any message you want associated with the file. This is helpful so that you or your collaborators know what changes occuring in each version. iThis is all you have to do if you just want to do version control locally of your files. If you want to add the version controlled files to a remote repository, read on!
+
+`$ git commit -m 'This is my first commit!'`
+
+![](https://github.com/kijohnson/Github-Git-Module/blob/master/Step6.PNG?raw=true)
+
+###7. Create a project repository on Github
+To create a new repository: Click the "+" sign next to your icon (in the upper right hand corner of the screen) and select "New repository" and provide it a name that is associated with the project. I am going to call my Github repository *Git_demo_files*
+
+###8. Link your local repository to the new Github repository you created on Github using the *git remote add origin* command. 
+
+The origin (the location address of your remote repository) will now tag that github location for the files to be stored.
+
+`$ git remote add origin https://github.com/kijohnson/Github-Git-Module`
+
+![](https://github.com/kijohnson/Github-Git-Module/blob/master/Step8.PNG?raw=true)
+
+###9. Use the git *push* command to upload the contents of the local repository (master) to github.
+
+`$ git push -u origin master`
+
+![](https://github.com/kijohnson/Github-Git-Module/blob/master/Step9.PNG?raw=true)
+You should see the helloworld.txt file now in your git repository.
+
+*Note: You might be prompted for your username and password, just type each and press enter* 
+*Your password may not appear, but just trust that you typed it correctly, if you typed it incorrectly then just restart this step* 
+*Note: Sometimes the readme file that is created when you create a Github repository will prevent using from pushing from your local computer to Github. If that is the case, you can use the command `$ git push -u -f origin master`. The u in this command stands for upstream and the f stands for force. Since it is never very good to force anything, make sure you are careful to understand what will happen with you use -f. To read more: https://git-scm.com/docs/git-push
+
+##Cloning a repository from Github to your local machine with Git Bash
+You can also clone a Github repository to your local machine to start version control as above. Sometimes a collaborator will start a project that you would like to contribute to. For example, if your collaborator starts a Github repository for **Project X** and you want to work on one file that is under version control together, the collaborator can put an initial version of the file in the **Project X** Github repository for you to contribute to. You can *clone* the **Project X** repository to your local computer by clicking on the green **Clone or download** button on Github and then **Download to zip**. In the zipped folder, there will be a copy of the repository that you can transfer to a location on your computer.
+You can then open Git Bash and set the cloned repository as your master directory (using *cd* as above) and initialize git to the cloned local repository with *git init*. You can then make changes to the  file, *add* and *commit* as before and then use *git push* to push your version to the shared repository. Let's say that your collaborator makes some changes to the file in the Github shared repository that you pushed the file to. To access your most recent version, they will use *git pull* to pull down the file to their local repository, make their changes and then *push* it back to Github repository with a commit message about the changes. You can then use *git pull* to pull it down to your local repository for more changes, and then *add* and *commit* the new version and then *push* it back up to the Github repository. Viola-you just collaborated on making changes to a file in a nice and tidy fashion. No more emailing file versions back and forth and asking the question: which version should I be using (and finding out you were working on the wrong version)?  
+
+It gets more complicated than this but this should be enough to get you started with organized file management. To learn about branching and merging, which are pretty important concepts when working collaboratively, see this excellent resource: https://git-scm.com/book/en/v2 
+
+##Other useful commands (from various sources):
+
+To change github repositories:
+`$ git remote rm origin`
+
+To remove all files from the staging area:
+`$ git reset HEAD -- .`
+
+To remove single file from staging area:
+`$ git reset HEAD -- path/to/file`
+
+To see files that are to be committed (those in your staging area):
+
+`$ git diff --cached`
+
+To see files in staging area:
+`$ git status`
+
+To revert to an ealier version of a file:
+
+`git reset - -hard 'commit hash'`: To reset a file version to an earlier commit. Note for
+'commit hash', you need to insert the long or abbreviated alphanumeric number for
+the commit that can be determined by getting a graph of commits with abbreviated
+hash numbers for each commit (for output options, see: https://gitscm.
+com/book/en/v2/Git-Basics-Viewing-the-Commit-History)
+`git log --pretty=format:"%h %s"--graph` 
+
+##Step-by-step instructions for GitHub desktop
+
+
+###1. Create a GitHub account
+Go to: https://github.com to create an account. For more detailed instructions on using GitHub than are provided below, see: https://guides.github.com/activities/hello-world/.
+
+###2. Download and install GitHub desktop
+
+For 64-bit Windows: https://central.github.com/deployments/desktop/desktop/latest/win32 
+
+For Mac OS: https://central.github.com/deployments/desktop/desktop/latest/darwin 
+
+Or go to https://desktop.github.com/ and find the version for your machine.
+
+
+###3. Open GitHub desktop, sign in and initialize a repository
+
+When you first open GitHub desktop, you will be prompted to enter your user name and password from github.com. Enter these, and click File --> New repository. 
+
+Enter a name for your new repository. I called mine *Project1*, and in the description box, I typed *This is my first GitHub repo*. I then changed the local path from the default to a more convenient directory (I used the desktop). Finally, I clicked the box for "Initialize this repository with a readme" and then "Create repository". The readme file is optional and it is a text file created with the repository name in it and nothing else. If you choose to create it here, you can open it on your machine and put more information about the repository in it for you and your team (*e.g.*, a list of all the files you've added with more details about each, a brief project overview).
+
+<img src="https://raw.githubusercontent.com/kijohnson/Github-Git-Module/caf835832957fec0ac3a77fd212f615f2d29265e/desktopIMG1.PNG">
+
+###4. Save project file(s) in the repository folder
+
+If you already have a project you're working on and would like to store/share on GitHub, copy and paste, drag and drop, or otherwise move those files to the new project folder/repository you've created. For this guide, I created a text file with "hello world" in it, because I have no imagination, and saved it as helloWorld.txt in the *Project1* folder. Feel free to do so if you don't have other files handy or ready for prime time.
+
+###5. Commit changes to the repository
+
+Once you've moved your files to your version of the *Project1* folder, they should appear in GitHub desktop unter the "Changes" tab. In the lower left corner there are two boxes, one for a summary and one for a description. Type something in the summary box (I used "This is a test") and if you like, type a longer description in the description box (I used "My first GitHub commit!"). The summary box is required, and the description box is optional. You can always add more to these or change them later.
+
+<img src="https://raw.githubusercontent.com/kijohnson/Github-Git-Module/caf835832957fec0ac3a77fd212f615f2d29265e/desktopIMG2.PNG">
+
+Click "Commit to master". The large GitHub desktop panel will change to read "No local changes..." 
+
+<img src="https://raw.githubusercontent.com/kijohnson/Github-Git-Module/caf835832957fec0ac3a77fd212f615f2d29265e/desktopIMG3.PNG">
+
+###6. Send your new repository to your GitHub account
+
+When you're ready to send your new repo to GitHub, click on "Publish repository" toward the top right of GitHub desktop. A popup will show you the details of the repository. Unless you have an upgraded (paid) GitHub account, you need to de-click the "Keep this code private" box. Review the other information and then click "Publish repository". 
+
+Switch to your browser and go to github.com to verify that your repository is there. Each time you're working on your project, open GitHub desktop and 1) commit changes, then 2) "Push" the repo to your online GitHub account to save changes in the cloud. You can use the Repository menu --> Push, or use the keyboard shortcut *Ctrl P* to push changes once committed.
+
+##Cloning a repository from Github to your local machine with Git Desktop
+
+If another team member created a repository that you're using, or if you find a repository you'd like to have, you can save a local copy to work on yourself and then commit changes and push them to GitHub online. 
+
+- From GitHub desktop, simply click on File --> Clone Repository
+- Choose one of your existing repositories or fill in the URL to the repository you'd like to save locally
+- Ensure that the local path points where you would like and click "Clone"
+- Now you can edit the repo like normal and commit, push, and share changes.
+
+##Git and GitHub dictionary of commonly used terms
+
+- **Branch**. The default branch is called the master branch and proceeds as a linear set of "snapshots" of a directory of files under version control. Users can also *branch* off the master branch to make changes to a version without having it effect the versions being tracked on the master branch. A user may want to do this to make some changes to code for example that they want to test but aren't sure yet if they will work and be incorporated into the working version of the code. 
+- **Clone**. Allows you to clone a remote existing repository from Github to your local computer giving you access to all files in that repository. When you clone a repository a *.git* subdirectory is automatically initialized. 
+- **Commit**. Allows you to stage the file for pushing to the remote repository
+- **Diff**. Allows you to check what has been added but not yet staged (committed)
+- **Fork**. Allows you to copy another repository and start working on it indepdendently. You can also pull updates from the parent repository to your forked repository
+- **Local**. The version controlled respoistory on your local machine
+- **Master**. The default branch for git commits
+- **Merge**. This git command is used to merge changes from different versions (e.g. merge changes in a branch to the most recent version on the master branch)
+- **Origin**. An alias for a remote reposiotry URL 
+- **Pull**. Pull files from a remote repository (e.g. Github) to your local repository 
+- **Push**. Push files from a local repository to a remote repository (e.g. Github)
+- **Remote**. The respository at a remote site.
+- **Status**. Allows you to check the status of tracked and untracked files
+
+
+
+
+
+##Other Resources
+- https://www.kernel.org/pub/software/scm/git/docs/gittutorial.html
+- https://docs.gitlab.com/ce/gitlab-basics/start-using-git.html
+- Using Git/SVN from RStudio: https://www.r-bloggers.com/rstudio-and-github/ 
+- https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell 
+
+
